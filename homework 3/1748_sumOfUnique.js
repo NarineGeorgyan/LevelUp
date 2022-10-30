@@ -13,7 +13,7 @@ var sumOfUnique = function (nums) {
   const obj = Object.create(null);
   let sum = 0;
   for (let i = 0; i < nums.length; i++) {
-    obj[nums[i]] ? obj[nums[i]]++ : (obj[nums[i]] = 1);
+    obj[nums[i]]=obj[nums[i]] ? obj[nums[i]]++ : (obj[nums[i]] = 1);
   }
   for (let [key, val] of Object.entries(obj)) {
     if (obj[key] == 1) {

@@ -6,20 +6,38 @@ var searchRange = function (nums, target) {
   if (start == end && nums[mid] == target) {
     return [mid, end];
   }
+  if (nums.length === 2) {
+    return nums[start] === target && nums[end] === target
+      ? [start, end]
+      : target === nums[start]
+      ? [start, start]
+      : target === nums[end]
+      ? [end, end]
+      : [-1, -1];
+  }
+
   while (start <= end) {
-    mid = Math.round((start + end) / 2);
+    mid = Math.floor((start + end) / 2);
 
     if (nums[mid] === target) {
-      return nums[mid] === nums[mid + 1] ? [mid, mid + 1] : [mid - 1, end];
-    }
+      if (nums[mid] === nums[0]) return [start, mid];
+      if (nums[mid] === nums[nums.length - 1]) return [mid, end];
 
+      if (nums[mid] !== nums[mid + 1]) {
+        if (nums[mid] === nums[mid - 1]) {
+          return [mid - 1, mid];
+        } else if (nums[mid] !== nums[mid - 1]) {
+          return [mid, mid];
+        }
+        return [mid, mid + 1];
+      }
+    }
     if (nums[mid] > target) {
       end = mid - 1;
     } else {
-      console.log(start);
       start = mid + 1;
     }
   }
   return [-1, -1];
 };
-console.log(searchRange([1, 3], 1));
+console.log(searchRange([5, 6, 8, 8, 10], 10));
